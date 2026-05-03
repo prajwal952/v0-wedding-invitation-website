@@ -49,7 +49,7 @@ export function MusicPlayer() {
         ref={audioRef}
         loop
         preload="auto"
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        src="https://pagalworld.com.se/files/download/id/3702"
       />
       <Button
         onClick={toggleMusic}
