@@ -49,7 +49,7 @@ export function MusicPlayer() {
         ref={audioRef}
         loop
         preload="auto"
-        src="https://pagalworld.com.se/files/download/id/3702"
+        src="https://www.chosic.com/wp-content/uploads/2022/02/Flute-Indian.mp3"
       />
       <Button
         onClick={toggleMusic}
