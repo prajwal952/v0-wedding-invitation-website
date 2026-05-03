@@ -5,32 +5,32 @@ import { Volume2, VolumeX } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function MusicPlayer() {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [hasInteracted, setHasInteracted] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(true)
+  const [hasAutoPlayed, setHasAutoPlayed] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
 
+  // Attempt autoplay on mount
   useEffect(() => {
-    const handleFirstInteraction = () => {
-      if (!hasInteracted) {
-        setHasInteracted(true)
-        if (audioRef.current) {
-          audioRef.current.play().then(() => {
-            setIsPlaying(true)
-          }).catch(() => {
-            // Autoplay was prevented
-          })
+    if (!hasAutoPlayed && audioRef.current) {
+      audioRef.current.play().then(() => {
+        setIsPlaying(true)
+        setHasAutoPlayed(true)
+      }).catch(() => {
+        // Autoplay was prevented by browser, wait for user interaction
+        setIsPlaying(false)
+        const handleFirstInteraction = () => {
+          if (audioRef.current) {
+            audioRef.current.play().then(() => {
+              setIsPlaying(true)
+              setHasAutoPlayed(true)
+            }).catch(() => {})
+          }
         }
-      }
+        document.addEventListener("click", handleFirstInteraction, { once: true })
+        document.addEventListener("touchstart", handleFirstInteraction, { once: true })
+      })
     }
-
-    document.addEventListener("click", handleFirstInteraction, { once: true })
-    document.addEventListener("touchstart", handleFirstInteraction, { once: true })
-
-    return () => {
-      document.removeEventListener("click", handleFirstInteraction)
-      document.removeEventListener("touchstart", handleFirstInteraction)
-    }
-  }, [hasInteracted])
+  }, [hasAutoPlayed])
 
   const toggleMusic = () => {
     if (audioRef.current) {
@@ -64,7 +64,7 @@ export function MusicPlayer() {
           <VolumeX className="h-6 w-6 text-muted-foreground" />
         )}
       </Button>
-      {!hasInteracted && (
+      {!hasAutoPlayed && !isPlaying && (
         <div className="fixed bottom-24 right-6 z-50 bg-card/95 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg border border-secondary text-sm text-foreground animate-pulse">
           Click anywhere to play music
         </div>
