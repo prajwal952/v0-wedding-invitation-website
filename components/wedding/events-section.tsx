@@ -74,10 +74,10 @@ export function EventsSection() {
   }
 
   return (
-    <section id="events" className="py-20 bg-gradient-to-b from-background via-primary/5 to-background ornamental-border">
+    <section id="events" className="py-12 sm:py-20 bg-gradient-to-b from-background via-primary/5 to-background ornamental-border">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="font-serif text-5xl md:text-6xl text-primary mb-4">Wedding Events</h2>
+        <div className="text-center mb-10 sm:mb-16">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary mb-4">Wedding Events</h2>
           <div className="flex justify-center items-center gap-4 mb-6">
             <div className="h-px w-16 bg-gradient-to-r from-transparent to-secondary" />
             <span className="text-2xl">🪔</span>
@@ -88,7 +88,7 @@ export function EventsSection() {
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+        <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
           {events.map((event, index) => (
             <div
               key={index}

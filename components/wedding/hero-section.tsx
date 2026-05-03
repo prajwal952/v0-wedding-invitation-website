@@ -47,42 +47,42 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className={`relative z-10 text-center px-4 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+      <div className={`relative z-10 text-center px-6 sm:px-8 md:px-4 w-full max-w-4xl mx-auto transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
         {/* Decorative Om symbol */}
         <div className="mb-6 flex justify-center">
           <div className="text-4xl md:text-5xl text-secondary animate-glow-pulse">॥ श्री ॥</div>
         </div>
 
         {/* Main title */}
-        <h1 className="font-serif text-6xl md:text-8xl lg:text-9xl text-primary mb-4 tracking-wide">
+        <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-primary mb-2 sm:mb-4 tracking-wide break-words">
           Sachin
         </h1>
-        <div className="flex items-center justify-center gap-4 mb-4">
-          <div className="h-px w-16 md:w-32 bg-gradient-to-r from-transparent via-secondary to-transparent" />
-          <span className="text-4xl md:text-5xl text-primary">❤</span>
-          <div className="h-px w-16 md:w-32 bg-gradient-to-r from-transparent via-secondary to-transparent" />
+        <div className="flex items-center justify-center gap-2 sm:gap-4 mb-2 sm:mb-4">
+          <div className="h-px w-12 sm:w-16 md:w-32 bg-gradient-to-r from-transparent via-secondary to-transparent" />
+          <span className="text-3xl sm:text-4xl md:text-5xl text-primary">&amp;</span>
+          <div className="h-px w-12 sm:w-16 md:w-32 bg-gradient-to-r from-transparent via-secondary to-transparent" />
         </div>
-        <h1 className="font-serif text-6xl md:text-8xl lg:text-9xl text-primary mb-8 tracking-wide">
+        <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-primary mb-6 sm:mb-8 tracking-wide break-words">
           Sowmya
         </h1>
 
         {/* Subtitle */}
-        <p className="text-lg md:text-xl lg:text-2xl text-foreground/80 max-w-2xl mx-auto mb-4 leading-relaxed">
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-foreground/80 max-w-2xl mx-auto mb-2 sm:mb-4 leading-relaxed px-2">
           Together with their families, invite you to celebrate their wedding
         </p>
         
         {/* Wedding date teaser */}
-        <div className="mt-8 mb-12">
-          <p className="text-secondary text-xl md:text-2xl font-medium tracking-widest uppercase">
+        <div className="mt-4 sm:mt-8 mb-8 sm:mb-12">
+          <p className="text-secondary text-lg sm:text-xl md:text-2xl font-medium tracking-wider sm:tracking-widest uppercase">
             December 15, 2026
           </p>
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
           <Button
             size="lg"
-            className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-full sm:w-auto"
             onClick={() => document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth" })}
           >
             RSVP Now
@@ -90,7 +90,7 @@ export function HeroSection() {
           <Button
             size="lg"
             variant="outline"
-            className="border-2 border-secondary text-foreground hover:bg-secondary/20 px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            className="border-2 border-secondary text-foreground hover:bg-secondary/20 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-full sm:w-auto"
             onClick={() => document.getElementById("events")?.scrollIntoView({ behavior: "smooth" })}
           >
             View Events
