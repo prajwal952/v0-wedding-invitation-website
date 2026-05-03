@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Heart, Star, Coffee, Ring } from "lucide-react"
+import { Heart, Star, Coffee, Gem } from "lucide-react"
 
 const storyMilestones = [
   {
@@ -26,7 +26,7 @@ const storyMilestones = [
       "Both families met and bonded over shared values, traditions, and lots of delicious food. It was a beautiful blend of two wonderful families.",
   },
   {
-    icon: Ring,
+    icon: Gem,
     year: "2025",
     title: "The Proposal",
     description:
