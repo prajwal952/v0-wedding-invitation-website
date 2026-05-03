@@ -5,43 +5,78 @@ import { Volume2, VolumeX } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function MusicPlayer() {
-  const [isPlaying, setIsPlaying] = useState(true)
-  const [hasAutoPlayed, setHasAutoPlayed] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [showHint, setShowHint] = useState(true)
   const audioRef = useRef<HTMLAudioElement>(null)
 
-  // Attempt autoplay on mount
   useEffect(() => {
-    if (!hasAutoPlayed && audioRef.current) {
-      audioRef.current.play().then(() => {
-        setIsPlaying(true)
-        setHasAutoPlayed(true)
-      }).catch(() => {
-        // Autoplay was prevented by browser, wait for user interaction
-        setIsPlaying(false)
-        const handleFirstInteraction = () => {
-          if (audioRef.current) {
-            audioRef.current.play().then(() => {
-              setIsPlaying(true)
-              setHasAutoPlayed(true)
-            }).catch(() => {})
-          }
-        }
-        document.addEventListener("click", handleFirstInteraction, { once: true })
-        document.addEventListener("touchstart", handleFirstInteraction, { once: true })
-      })
-    }
-  }, [hasAutoPlayed])
+    const audio = audioRef.current
+    if (!audio) return
 
-  const toggleMusic = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause()
-      } else {
-        audioRef.current.play()
-      }
-      setIsPlaying(!isPlaying)
+    const handleCanPlay = () => {
+      console.log("[v0] Audio can play now")
+      setIsLoaded(true)
+    }
+
+    const handleError = (e: Event) => {
+      console.log("[v0] Audio error:", e)
+    }
+
+    audio.addEventListener("canplaythrough", handleCanPlay)
+    audio.addEventListener("error", handleError)
+
+    return () => {
+      audio.removeEventListener("canplaythrough", handleCanPlay)
+      audio.removeEventListener("error", handleError)
+    }
+  }, [])
+
+  const playAudio = async () => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    try {
+      audio.volume = 0.5
+      await audio.play()
+      setIsPlaying(true)
+      setShowHint(false)
+      console.log("[v0] Audio playing successfully")
+    } catch (error) {
+      console.log("[v0] Play failed:", error)
     }
   }
+
+  const toggleMusic = async () => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    if (isPlaying) {
+      audio.pause()
+      setIsPlaying(false)
+    } else {
+      await playAudio()
+    }
+  }
+
+  // Play on first user interaction anywhere on page
+  useEffect(() => {
+    const handleFirstInteraction = () => {
+      if (!isPlaying && audioRef.current) {
+        playAudio()
+      }
+    }
+
+    if (showHint) {
+      document.addEventListener("click", handleFirstInteraction)
+      document.addEventListener("touchstart", handleFirstInteraction)
+    }
+
+    return () => {
+      document.removeEventListener("click", handleFirstInteraction)
+      document.removeEventListener("touchstart", handleFirstInteraction)
+    }
+  }, [showHint, isPlaying])
 
   return (
     <>
@@ -49,8 +84,7 @@ export function MusicPlayer() {
         ref={audioRef}
         loop
         preload="auto"
-        crossOrigin="anonymous"
-        src="https://cdn.pixabay.com/audio/2022/10/18/audio_a12c91f622.mp3"
+        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
       />
       <Button
         onClick={toggleMusic}
@@ -65,7 +99,7 @@ export function MusicPlayer() {
           <VolumeX className="h-6 w-6 text-muted-foreground" />
         )}
       </Button>
-      {!hasAutoPlayed && !isPlaying && (
+      {showHint && !isPlaying && (
         <div className="fixed bottom-24 right-6 z-50 bg-card/95 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg border border-secondary text-sm text-foreground animate-pulse">
           Click anywhere to play music
         </div>
