@@ -49,7 +49,8 @@ export function MusicPlayer() {
         ref={audioRef}
         loop
         preload="auto"
-        src="https://www.chosic.com/wp-content/uploads/2022/02/Flute-Indian.mp3"
+        crossOrigin="anonymous"
+        src="https://cdn.pixabay.com/audio/2022/10/18/audio_a12c91f622.mp3"
       />
       <Button
         onClick={toggleMusic}
